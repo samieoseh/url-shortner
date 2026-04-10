@@ -1,0 +1,26 @@
+{
+  "name": "url-shortner-workspace",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "dev:gateway": "npm run dev -w apps/api-gateway",
+    "dev:auth": "npm run dev -w apps/auth-service",
+    "dev:product": "npm run dev -w apps/product-service",
+    "dev:order": "npm run dev -w apps/order-service",
+    "dev": "concurrently -n gateway,auth,product,order -c blue,green,yellow,magenta \"npm run dev:gateway\" \"npm run dev:auth\" \"npm run dev:product\" \"npm run dev:order\"",
+    "db:generate": "npm run db:generate -w apps/auth-service",
+    "db:push": "npm run db:push -w apps/auth-service"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.1",
+    "concurrently": "^9.1.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  }
+}
